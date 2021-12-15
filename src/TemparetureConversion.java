@@ -3,12 +3,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.util.Objects;
+
 public class TemparetureConversion extends JFrame implements ActionListener {
 
     JLabel label1,label2,label3,label4,label5;
     JTextField textField1,textField2,textField3,textField4;
     JButton btn1,btn2,btn3;
-    Font font , font2;
+    Font font , font2 , font3;
     Container container;
 
     public TemparetureConversion()
@@ -22,7 +24,8 @@ public class TemparetureConversion extends JFrame implements ActionListener {
 
 
         font = new Font("Arial",Font.BOLD,20);
-        font2 = new Font("Arial",Font.BOLD,16);
+        font2 = new Font("Arial",Font.BOLD,17);
+        font3 = new Font("Arial",Font.BOLD,14);
 
         label1 = new JLabel("Temperature Conversion ");
         label1.setBounds(25,10, 250,35);
@@ -39,6 +42,7 @@ public class TemparetureConversion extends JFrame implements ActionListener {
 
         textField1 = new JTextField();
         textField1.setBounds(120,60, 130,30);
+        textField1.setFont(font3);
 
         container.add(label2);
         container.add(textField1);
@@ -51,6 +55,7 @@ public class TemparetureConversion extends JFrame implements ActionListener {
 
         textField2 = new JTextField();
         textField2.setBounds(120,100, 130,30);
+        textField2.setFont(font3);
 
         container.add(label3);
         container.add(textField2);
@@ -63,6 +68,7 @@ public class TemparetureConversion extends JFrame implements ActionListener {
 
         textField3 = new JTextField();
         textField3.setBounds(120,140, 130,30);
+        textField3.setFont(font3);
 
         container.add(label4);
         container.add(textField3);
@@ -75,6 +81,7 @@ public class TemparetureConversion extends JFrame implements ActionListener {
 
         textField4 = new JTextField();
         textField4.setBounds(120,180, 130,30);
+        textField4.setFont(font3);
 
         container.add(label5);
         container.add(textField4);
@@ -111,31 +118,53 @@ public class TemparetureConversion extends JFrame implements ActionListener {
         setResizable(false);
         setVisible(true);
     }
-    public static void main(String[] args) {
-         new TemparetureConversion();
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        String str1,str2,str3;
+        str1 = textField1.getText();
+        str2 = textField2.getText();
+        str3 = textField3.getText();
+
+
         if(e.getSource() == btn1)
         {
-            if(textField1.getText().equals(" ") && textField3.getText().equals(" ")  )
+
+          // F to C
+            //if( str1 == "" && str2 == "" && str3  != "")  128 and 129 Line are equals
+            if( (!Objects.equals(str2, "")) && (Objects.equals(str3, "")) && (Objects.equals(str1,"")))
             {
-                String recive = textField2.getText();
-                double data = Double.parseDouble(recive);
-                double data2 = ( (9 * data) + 180 )/5;
+                double data = Double.parseDouble(str2);
+                double data2 =( data - 32  ) * 5/9 ;
                 String send = String.valueOf(data2);
                 textField4.setText(send);
+            }
+            // K to C
+            else if( (!Objects.equals(str3, "")) && (Objects.equals(str2, "")) && (Objects.equals(str1,"")))
+            {
+                double data = Double.parseDouble(str3);
+                double data2 = data - 273   ;
+                String send = String.valueOf(data2);
+                textField4.setText(send);
+            }
+            //  When all fields are Full
+            else if( (!Objects.equals(str3, "")) && (!Objects.equals(str2, "")) && (!Objects.equals(str1,"")))
+            {
+
+                textField4.setText("All INPUT Fields Full");
+            }
+            //  Nothing insert
+            else
+            {
+                textField4.setText("Nothing Input ..!!!");
 
             }
-
-
         }
-        if(e.getSource() == btn2)
-        {
 
-            textField4.setText("  Wassi");
-        }
+    }
+
+    public static void main(String[] args) {
+        new TemparetureConversion();
     }
 }
