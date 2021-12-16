@@ -3,7 +3,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.math.*;
 import java.util.Objects;
+
+import java.text.DecimalFormat;
 
 public class TemparetureConversion extends JFrame implements ActionListener {
 
@@ -127,41 +130,137 @@ public class TemparetureConversion extends JFrame implements ActionListener {
         str2 = textField2.getText();
         str3 = textField3.getText();
 
-
+        //C Button
         if(e.getSource() == btn1)
         {
 
-          // F to C
-            //if( str1 == "" && str2 == "" && str3  != "")  128 and 129 Line are equals
+          // F to C [ (°F − 32 ) × 5/9]
+
             if( (!Objects.equals(str2, "")) && (Objects.equals(str3, "")) && (Objects.equals(str1,"")))
             {
                 double data = Double.parseDouble(str2);
                 double data2 =( data - 32  ) * 5/9 ;
-                String send = String.valueOf(data2);
+                String send  = String.format("%.2f", data2);
+               // String send = String.valueOf(data2);
                 textField4.setText(send);
             }
-            // K to C
+            // K to C [ K − 273 ]
             else if( (!Objects.equals(str3, "")) && (Objects.equals(str2, "")) && (Objects.equals(str1,"")))
             {
                 double data = Double.parseDouble(str3);
                 double data2 = data - 273   ;
-                String send = String.valueOf(data2);
+                String send  = String.format("%.2f", data2);
+               // String send = String.valueOf(data2);
                 textField4.setText(send);
             }
-            //  When all fields are Full
-            else if( (!Objects.equals(str3, "")) && (!Objects.equals(str2, "")) && (!Objects.equals(str1,"")))
+            //  C to C
+            else if( (Objects.equals(str3, "")) && (Objects.equals(str2, "")) && (!Objects.equals(str1,"")))
             {
-
-                textField4.setText("All INPUT Fields Full");
+                textField4.setText(str1);
             }
             //  Nothing insert
+            else if( (Objects.equals(str3, "")) && (Objects.equals(str2, "")) && (Objects.equals(str1,"")))
+            {
+                textField4.setText("Nothing Inserted");
+
+            }
             else
             {
-                textField4.setText("Nothing Input ..!!!");
+                textField4.setText("Multiple INPUT");
 
             }
         }
 
+        //F Button
+        else if(e.getSource() == btn2)
+        {
+            //textField4.setText(" Button 2 ..!!!");
+
+            // C to F [(°C × 9/5) + 32 ]
+
+            if( (!Objects.equals(str1, "")) && (Objects.equals(str2, "")) && (Objects.equals(str3,"")))
+            {
+                double data = Double.parseDouble(str1);
+                double data2 =  (1.8 * data ) + 32 ;
+
+                String send  = String.format("%.2f", data2);
+                //String send = String.valueOf(data2);
+                textField4.setText(send);
+            }
+            // F to K [°F − 32) × 5/9 + 273.15 ]
+
+            else if( (Objects.equals(str1, "")) && (Objects.equals(str2, "")) && (!Objects.equals(str3,"")))
+            {
+                double data = Double.parseDouble(str3);
+                double data2 =  ((data - 273) * 1.8)  + 32  ;
+                String send  = String.format("%.2f", data2);
+               //String send = String.valueOf(data2);
+                textField4.setText(send);
+            }
+             //  F to F [input == output ]
+
+            else if( (Objects.equals(str1, "")) && (!Objects.equals(str2, "")) && (Objects.equals(str3,"")))
+            {
+
+                textField4.setText(str2);
+            }
+            //  Nothing insert
+            else if( (Objects.equals(str3, "")) && (Objects.equals(str2, "")) && (Objects.equals(str1,"")))
+            {
+                textField4.setText("Nothing Inserted");
+
+            }
+
+            //  Multiple
+            else
+            {
+                textField4.setText("Multiple INPUT");
+
+            }
+        }
+
+        else if(e.getSource() == btn3)
+        {
+            //textField4.setText(" Button 2 ..!!!");
+
+            // K to C [  °C + 273  ]
+
+            if( (!Objects.equals(str1, "")) && (Objects.equals(str2, "")) && (Objects.equals(str3,"")))
+            {
+                double data = Double.parseDouble(str1);
+                double data2 =   data + 273; ;
+
+                String send  = String.format("%.2f", data2);
+                //String send = String.valueOf(data2);
+                textField4.setText(send);
+            }
+            // K to F  [(°K − 273 ) × 9/5 + 32 ]
+            else if( (Objects.equals(str1, "")) && (!Objects.equals(str2, "")) && (Objects.equals(str3,"")))
+            {
+                double data = Double.parseDouble(str2);
+                double data2 =  ((data - 32) * .555)  + 273  ;
+                String send  = String.format("%.2f", data2);
+                //String send = String.valueOf(data2);
+                textField4.setText(send);
+            }
+            //  K to K
+            else if( (Objects.equals(str1, "")) && (Objects.equals(str2, "")) && (!Objects.equals(str3,"")))
+            {
+
+                textField4.setText(str3);
+            }
+            //  Nothing insert
+            else if( (Objects.equals(str3, "")) && (Objects.equals(str2, "")) && (Objects.equals(str1,"")))
+            {
+                textField4.setText("Nothing Inserted");
+
+            }
+            else
+            {
+                textField4.setText("Multiple INPUT");
+
+            }
+        }
     }
 
     public static void main(String[] args) {
